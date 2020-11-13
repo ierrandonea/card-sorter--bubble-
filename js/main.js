@@ -19,32 +19,34 @@ buttonSort.addEventListener("click", () => {
     cardGroup = [];
 });
 
-const sortCard = (cardGroup) => {
-    let wall = cardGroup.length - 1;
-    while (wall > 0) {
-        let i = 0;
-        while (i < wall) {
-            if (cardGroup[i].number > cardGroup[i + 1].number) {
-                let aux = cardGroup[i];
-                cardGroup[i] = cardGroup[i + 1];
-                cardGroup[i + 1] = aux;
+function sortCard(cardGroup) {
+    let n = cardGroup.length;
+    for (let i = 0; i < n; i++) {
+        let min = i;
+        for (let j = 0; j < n; j++) {
+            if (cardGroup[j] < cardGroup[min]) {
+                min = j;
             }
-            i++;
-            let cardDeck = document.createElement("div");
-            cardGroup.forEach((item) => {
-                let card2 = document.createElement("div");
-                let numbers = document.createElement("h1");
-                numbers.innerHTML = item.number;
-                numbers.classList.add(item.suit);
-                card2.appendChild(numbers);
-                card2.classList.add("card");
-                card2.classList.add("minimizer");
-                cardDeck.appendChild(card2);
-                cardDeck.classList.add("row");
-                miniBoard.appendChild(cardDeck);
-            });
         }
-        wall--;
+        if (min != i) {
+            let tmp = cardGroup[i];
+            cardGroup[i] = cardGroup[min];
+            cardGroup[min] = tmp;
+        }
+
+        let cardDeck = document.createElement("div");
+        cardGroup.forEach((item) => {
+            let card2 = document.createElement("div");
+            let numbers = document.createElement("h1");
+            numbers.innerHTML = item.number;
+            numbers.classList.add(item.suit);
+            card2.appendChild(numbers);
+            card2.classList.add("card");
+            card2.classList.add("minimizer");
+            cardDeck.appendChild(card2);
+            cardDeck.classList.add("row");
+            miniBoard.appendChild(cardDeck);
+        });
     }
 }
 
